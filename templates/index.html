@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Satellite Image Analyzer</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <style>
+    .btn {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .analyze-btn {
+      background-color: #28a745;
+      color: white;
+    }
+    .ask-btn {
+      background-color: #007bff;
+      color: white;
+    }
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+  <script>
+    function validateForm() {
+      const fileInput = document.querySelector('input[name="image"]');
+      const filePath = fileInput.value;
+      const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+
+      if (!allowedExtensions.exec(filePath)) {
+        document.getElementById('error-msg').innerText = "❌ Only JPEG or PNG images are allowed!";
+        fileInput.value = ''; // Reset the input
+        return false;
+      }
+
+      document.getElementById('error-msg').innerText = '';
+      return true;
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>🌍 Satellite Image Analyzer</h1>
+
+    <form action="/analyze" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+      <label>Select a satellite image (JPEG or PNG only):</label><br><br>
+      <input type="file" name="image" accept=".jpg,.jpeg,.png"><br><br>
+
+      <label>Ask a question about the image:</label><br>
+      <input type="text" name="question" style="width: 300px;" placeholder="e.g. Is there any forest in this area?"><br><br>
+
+      <button type="submit" name="action" value="analyze" class="btn analyze-btn">Analyze Image</button>
+      <button type="submit" name="action" value="ask" class="btn ask-btn">Ask Question</button>
+      <div id="error-msg" class="error"></div>
+    </form>
+
+    {% if report %}
+      <div class="report">
+        <h2>📊 Land Cover Report</h2>
+        <ul>
+          {% for line in report %}
+            <li>{{ line }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    {% if summary %}
+      <div class="report">
+        <h2>🧠 AI Summary</h2>
+        <p>{{ summary }}</p>
+      </div>
+    {% endif %}
+
+    {% if answer %}
+      <div class="report">
+        <h2>❓ LLM Answer to Your Query</h2>
+        <p>{{ answer }}</p>
+      </div>
+    {% endif %}
+
+    {% if report %}
+      <div class="report">
+        <h2>🎨 Segmentation Mask</h2>
+        <img src="/static/mask.png" alt="Predicted Mask" width="300"><br><br>
+
+        <h3>🗺️ Legend:</h3>
+        <ul style="list-style: none; padding-left: 0;">
+          <li><span style="background:#00ffff; padding: 4px 10px;"></span> Urban Land</li>
+          <li><span style="background:#ffff00; padding: 4px 10px;"></span> Agriculture Land</li>
+          <li><span style="background:#ff00ff; padding: 4px 10px;"></span> Rangeland</li>
+          <li><span style="background:#00ff00; padding: 4px 10px;"></span> Forest Land</li>
+          <li><span style="background:#0000ff; padding: 4px 10px;"></span> Water</li>
+          <li><span style="background:#ffffff; padding: 4px 10px;"></span> Barren Land</li>
+          <li><span style="background:#000000; padding: 4px 10px;"></span> Unknown</li>
+        </ul>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>

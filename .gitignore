@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+
+# Environment secrets
+.env
+
+# Model weights (large files - optional)
+# unet_weights.pth
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Uploaded/generated images
+static/uploaded*.png
+static/mask*.png

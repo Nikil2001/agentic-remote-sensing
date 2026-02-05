@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Change Detection</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0f172a;
+      color: white;
+      text-align: center;
+      padding: 30px;
+    }
+    .container {
+      background-color: #1e293b;
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+    input[type="file"],
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 15px;
+    }
+    button {
+      background-color: #10b981;
+      color: white;
+      padding: 10px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    .ask-btn {
+      background-color: #3b82f6;
+    }
+    img {
+      margin-top: 15px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #38bdf8;
+    }
+    h2, h3 {
+      margin-top: 30px;
+      color: #facc15;
+    }
+    p {
+      background-color: #334155;
+      padding: 15px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🛰️ Satellite Image Change Detection</h1>
+
+    <form action="/compare" method="post" enctype="multipart/form-data">
+      <label>Upload Image 1 (Earlier):</label><br>
+      <input type="file" name="image1" required><br>
+
+      <label>Upload Image 2 (Later):</label><br>
+      <input type="file" name="image2" required><br>
+
+      <label>Ask a question about the change (optional):</label><br>
+      <input type="text" name="question" placeholder="e.g. Has forest cover reduced?"><br>
+
+      <button type="submit" name="action" value="analyze">Analyze Changes</button>
+      <button type="submit" name="action" value="ask" class="ask-btn">Ask Question</button>
+    </form>
+
+    {% if summary %}
+      <h2>🧠 Change Summary / LLM Answer</h2>
+      <p>{{ summary }}</p>
+
+      <h3>🔁 Visual Change Mask:</h3>
+      <img src="/static/change_mask.png" width="300" alt="Change Mask">
+    {% endif %}
+  </div>
+</body>
+</html>

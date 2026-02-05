@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ISRO Satellite Image Analysis Portal</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0f172a, #1e293b);
+      color: white;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+      box-sizing: border-box;
+    }
+    .hero {
+      background-image: url('/static/isro_satellite.jpg');
+      background-size: cover;
+      background-position: center;
+      border-radius: 15px;
+      padding: 30px;
+      max-width: 1000px;
+      width: 100%;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      position: relative;
+    }
+    .logo {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      height: 50px;
+    }
+    .hero h1 {
+      font-size: 2.5em;
+      color: #facc15;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px #000;
+      text-align: center;
+    }
+    .hero p {
+      font-size: 1.1em;
+      text-align: center;
+      color: #e2e8f0;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 2px #000;
+    }
+    .buttons {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .btn {
+      padding: 15px 30px;
+      margin: 10px;
+      background-color: #38bdf8;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-size: 18px;
+      transition: background 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #0ea5e9;
+    }
+    .about {
+      background-color: rgba(30, 41, 59, 0.9);
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    .about h2 {
+      color: #facc15;
+      font-size: 1.8em;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .about p {
+      max-width: 800px;
+      margin: auto;
+      line-height: 1.6;
+      color: #cbd5e1;
+      text-align: center;
+    }
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <img src="/static/LOGO.jpg" alt="ISRO Logo" class="logo">
+      <h1>QUERY DRIVEN REMOTE SENSING DATA INTERPRETATION</h1>
+      <p>Empowering satellite image intelligence with deep learning and AI. Analyze land use and detect environmental changes using advanced computer vision and Gemini-powered language models.</p>
+      <div class="buttons">
+        <a href="/analyze" class="btn">📷 Single Image Analysis</a>
+        <a href="/compare" class="btn">🔁 Change Detection</a>
+      </div>
+      <div class="about">
+        <h2>🌍 About the Project</h2>
+        <p>
+          This application leverages U-Net-based deep learning segmentation to classify land cover from satellite imagery, providing precise land type distribution reports and intelligent summaries powered by Google Gemini LLM. It also enables comparison of two temporal satellite images to detect changes in land use such as urbanization, deforestation, or agricultural expansion. Designed for research and institutional use, including applications within ISRO, academia, and geospatial intelligence.
+        </p>
+      </div>
+    </div>
+    <footer>
+      Built for M.Tech Major Project | Uding Flask, PyTorch, Unet and Gemini AI | Designed for ISRO-like applications
+    </footer>
+  </div>
+</body>
+</html>
