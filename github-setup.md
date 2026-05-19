@@ -4,6 +4,7 @@ This guide walks you through setting up a GitHub repository, creating SSH keys f
 
 ---
 
+
 ## 1. Create a GitHub Repository
 
 1. Go to [github.com](https://github.com) and sign in (or create an account)
