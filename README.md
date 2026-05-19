@@ -67,11 +67,28 @@ cd agentic-remote-sensing
 
 ### 2. Create and activate a virtual environment
 
+**macOS / Linux**
 ```bash
 python -m venv venv
-source venv/bin/activate        # macOS / Linux
-# venv\Scripts\activate         # Windows
+source venv/bin/activate
 ```
+
+**Windows (Command Prompt)**
+```cmd
+python -m venv venv
+venv\Scripts\activate.bat
+```
+
+**Windows (PowerShell)**
+```powershell
+python -m venv venv
+venv\Scripts\Activate.ps1
+```
+
+> If PowerShell blocks the script with an execution policy error, run this first:
+> ```powershell
+> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+> ```
 
 ### 3. Install dependencies
 
@@ -81,25 +98,51 @@ pip install -r requirements.txt
 
 `requirements.txt` installs: Flask, PyTorch, torchvision, OpenCV, Pillow, NumPy, Transformers, google-generativeai, python-dotenv.
 
-### 4. Configure Gemini API key
+### 4. Get a Gemini API key
 
-Get a free key from [Google AI Studio](https://aistudio.google.com/app/apikey), then create a `.env` file in the project root:
+1. Go to [https://aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey) and sign in with your Google account
+2. Click **Create API key** → select or create a Google Cloud project
+3. Copy the generated key
 
+Create a `.env` file in the project root with the key:
+
+**macOS / Linux**
 ```bash
 echo "GEMINI_API_KEY=your_api_key_here" > .env
+```
+
+**Windows (Command Prompt)**
+```cmd
+echo GEMINI_API_KEY=your_api_key_here > .env
+```
+
+**Windows (PowerShell)**
+```powershell
+"GEMINI_API_KEY=your_api_key_here" | Out-File -Encoding utf8 .env
 ```
 
 The `.env` file is listed in `.gitignore` and will not be committed.
 
 ### 5. Run the application
 
+**macOS / Linux**
 ```bash
+python app.py
+```
+
+**Windows**
+```cmd
 python app.py
 ```
 
 Open **http://127.0.0.1:5000** in your browser.
 
-> **Note:** On macOS, port 5000 may be occupied by AirPlay Receiver. Disable it in **System Settings → General → AirDrop & Handoff**, or run on a different port: `flask run --port 5001`.
+> **macOS only:** Port 5000 may be occupied by AirPlay Receiver. Disable it in **System Settings → General → AirDrop & Handoff**, or run on a different port:
+> ```bash
+> flask run --port 5001
+> ```
+
+> **Windows only:** If `python` is not recognised, try `py app.py`. Ensure Python 3.9+ is added to your PATH during installation.
 
 ---
 
@@ -187,8 +230,9 @@ All POST routes should return `200` when the API key is valid and has quota.
 - The free tier has rate limits — if you see `429 ResourceExhausted` in the logs, the key has hit its quota. Wait a minute or use a different key.
 
 **`Address already in use` on port 5000**
-- macOS AirPlay Receiver uses port 5000. Disable it in System Settings or use `flask run --port 5001`.
-- Kill an existing process: `kill $(lsof -ti:5000)`
+- macOS: AirPlay Receiver uses port 5000. Disable it in System Settings or use `flask run --port 5001`.
+- macOS / Linux: Kill the existing process with `kill $(lsof -ti:5000)`
+- Windows: Find and kill the process with `netstat -ano | findstr :5000`, then `taskkill /PID <pid> /F`
 
 **`ModuleNotFoundError: No module named 'dotenv'` or `'google.generativeai'`**
 - Re-run `pip install -r requirements.txt` inside the activated virtual environment.
